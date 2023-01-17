@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import Particular from "../../../components/layout/Particular";
+import Particular from "../../../../components/layout/Particular";
 
 export default function Detail({ data }) {
   const [partner, setPartner] = useState(data);

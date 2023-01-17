@@ -3,12 +3,12 @@ import { Box, Center, Text, Wrap, WrapItem, Divider } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import CardP from "../../../components/pages/CardP";
+import CardP from "../../../../components/pages/CardP";
 import { get_concessionnaires_vente } from "../../../../hooks/helpers";
 import axios from "axios";
-import Wauto from "../../../components/layout/Wauto";
-import DisplayPartners from "../../../components/layout/DisplayPartners";
-import Radio_group from "../../../components/Radio";
+import Wauto from "../../../../components/layout/Wauto";
+import DisplayPartners from "../../../../components/layout/DisplayPartners";
+import Radio_group from "../../../../components/Radio";
 
 export default function VenteConcessionnaires({ CONCESSIONNAIRE_VENTE }) {
   // etat

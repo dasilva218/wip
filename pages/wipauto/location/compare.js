@@ -1,13 +1,13 @@
 import { useState } from "react";
 import CarRent from "../../../models/carRent";
 import CarSale from "../../../models/carSale";
-import CardVehicule from "../../components/CardVehicule";
-import { Flex, Box, Wrap, WrapItem, Center, Text } from "@chakra-ui/react";
+import CardVehicule from "../../../components/CardVehicule";
+import { Box, Wrap, WrapItem, Center, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { get_dealer } from "../../../hooks/helpers";
-import Modal from "../../components/modal";
+import Modal from "../../../components/modal";
 import { BiArrowBack } from "react-icons/bi";
-// import Dealers from "../../../models/dealers";
+
 
 const Compare = ({ data }) => {
   const [cars, setCar] = useState(JSON.parse(data));

@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
-import Header from "./components/pages/Header";
-import HomeChild from "./components/pages/HomeChild";
+import Header from "./../components/pages/Header";
+import HomeChild from "./../components/pages/HomeChild";
 
 export default function Home() {
   return (

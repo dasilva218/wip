@@ -1,22 +1,8 @@
 import axios from "axios";
-import {
-  Wrap,
-  Image,
-  WrapItem,
-  Box,
-  Flex,
-  Text,
-  Heading,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Spacer,
-  Center,
-} from "@chakra-ui/react";
-import CardVehicule from "../../../components/CardVehicule";
+
 import { useState } from "react";
 import { useRouter } from "next/router";
-import Particular from "../../../components/layout/Particular";
+import Particular from "../../../../components/layout/Particular";
 
 export default function Detail({ data }) {
   const [partner, setPartner] = useState(data);

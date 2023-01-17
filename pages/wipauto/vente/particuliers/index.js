@@ -5,20 +5,16 @@ import {
   Wrap,
   WrapItem,
   Divider,
-  Radio,
-  RadioGroup,
-  Button,
-  Stack,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { get_particuliers_vente } from "../../../../hooks/helpers";
-import DisplayPartners from "../../../components/layout/DisplayPartners";
-import Wauto from "../../../components/layout/Wauto";
-import CardP from "../../../components/pages/CardP";
-import Radio_group from "../../../components/Radio";
+import DisplayPartners from "../../../../components/layout/DisplayPartners";
+import Wauto from "../../../../components/layout/Wauto";
+import CardP from "../../../../components/pages/CardP";
+import Radio_group from "../../../../components/Radio";
 
 export default function VenteIndividuals({ individuals_vente }) {
   const [individuals, setIndividuals] = useState(individuals_vente);

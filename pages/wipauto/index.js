@@ -2,7 +2,7 @@
 
 import { Box, Center, Text, Flex, Wrap, WrapItem } from "@chakra-ui/react";
 import Image from "next/image";
-import Wauto from "../components/layout/Wauto";
+import Wauto from "../../components/layout/Wauto";
 
 export default function AutoIndex() {
   return (
