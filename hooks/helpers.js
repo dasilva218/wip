@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/';
+const BASE_URL = 'https://wip-jlvoox7cd-dasilva218.vercel.app/';
 
 // concessionnaires qui font dans la location
 export const get_concessionnaires_location = async () => {
