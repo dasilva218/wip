@@ -1,4 +1,4 @@
-const BASE_URL = 'https://wip-indol.vercel.app/';
+const BASE_URL = 'http://localhost:3000/';
 
 // concessionnaires qui font dans la location
 export const get_concessionnaires_location = async () => {
