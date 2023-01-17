@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const BASE_URL = 'http://localhost:3000/';
 
 // concessionnaires qui font dans la location
@@ -17,9 +15,7 @@ export const get_concessionnaires_vente = async () => {
 
 // récuperer un concssionnaire spécifique
 export const get_dealer = async (target) => {
-  const response = await fetch(
-    `${BASE_URL}api/dealers/${target}`
-  );
+  const response = await fetch(`${BASE_URL}api/dealers/${target}`);
   return response.json();
 };
 
@@ -33,8 +29,6 @@ export const get_particuliers_location = async () => {
 
 // particuliers qui font dans la vente
 export const get_particuliers_vente = async () => {
-  const response = await fetch(
-    `${BASE_URL}api/vente/individuals/`
-  );
+  const response = await fetch(`${BASE_URL}api/vente/individuals/`);
   return response.json();
 };
