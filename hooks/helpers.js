@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://wip-ofiiu5973-dasilva218.vercel.app/";
+const BASE_URL = "http://localhost:3000/";
 
 // concessionnaires qui font dans la location
 export const get_concessionnaires_location = async () => {
