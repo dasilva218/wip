@@ -14,8 +14,8 @@ function Header({ page }) {
   return (
     <>
       <Flex
+        py={`18`}
         as={`nav`}
-        padding="18px 0px"
         justifyContent={`space-between`}
         alignItems={`center`}>
         {/*  */}
@@ -24,7 +24,7 @@ function Header({ page }) {
         </Box>
         {page === "home" ? (
           <Flex gap={"55px"} fontSize="17px" fontFamily={`ubuntu`}>
-            <ActionLink href={"#"}>Nous Contacter</ActionLink>
+            <ActionLink href={"#"}></ActionLink>
           </Flex>
         ) : (
           <Flex gap={"55px"} fontSize="17px" fontFamily={`ubuntu`}>
@@ -41,12 +41,12 @@ function Header({ page }) {
               <MenuList>
                 <MenuItem>
                   <ActionLink href={`/wipauto/location/concessionnaires`}>
-                    chez un concessionnaire
+                    concessionnaire
                   </ActionLink>
                 </MenuItem>
                 <MenuItem>
                   <ActionLink href={`/wipauto/location/particuliers`}>
-                    chez un particulier
+                    particulier
                   </ActionLink>
                 </MenuItem>
               </MenuList>
@@ -63,12 +63,12 @@ function Header({ page }) {
               <MenuList>
                 <MenuItem>
                   <ActionLink href={`/wipauto/vente/concessionnaires`}>
-                    chez un concessionnaire
+                    concessionnaire
                   </ActionLink>
                 </MenuItem>
                 <MenuItem>
                   <ActionLink href={`/wipauto/vente/particuliers`}>
-                    chez un particulier
+                    particulier
                   </ActionLink>
                 </MenuItem>
               </MenuList>
@@ -76,7 +76,7 @@ function Header({ page }) {
             {/*  */}
             <Menu>
               <MenuButton>
-                <ActionLink>Service Auto</ActionLink>
+                <ActionLink>Service</ActionLink>
               </MenuButton>
             </Menu>
           </Flex>

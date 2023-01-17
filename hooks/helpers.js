@@ -14,6 +14,12 @@ export const get_concessionnaires_vente = async () => {
   return response.data;
 };
 
+// récuperer un concssionnaire spécifique
+export const get_dealer = async (target) => {
+  const response = await axios.get(`${BASE_URL}api/dealers/${target}`);
+  return response.data;
+};
+
 // particuliers qui font dans la location
 export const get_particuliers_location = async () => {
   const response = await axios.get(`${BASE_URL}api/location/individuals/`);

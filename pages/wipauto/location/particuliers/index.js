@@ -7,6 +7,7 @@ import {
   Divider,
   Radio,
   RadioGroup,
+  SimpleGrid,
   Stack,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -14,44 +15,37 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { get_particuliers_location } from "../../../../hooks/helpers";
+import DisplayPartners from "../../../components/layout/DisplayPartners";
+import Wauto from "../../../components/layout/Wauto";
 import CardP from "../../../components/pages/CardP";
 import Footer from "../../../components/pages/Footer";
 import Header from "../../../components/pages/Header";
+import Pub_location from "../../../components/Pub_location";
+import Radio_group from "../../../components/Radio";
 
 export default function Individual_Location({ individuals_location }) {
   // etat
   const [individuals, setIndividuals] = useState(individuals_location);
-  const [value, setValue] = useState("");
-  const [option, setOption] = useState(false);
   const route = useRouter();
   const href = route.asPath;
   const routesplice = route.asPath.split("/");
   const name = routesplice.findLast((element) => element);
 
   //action
-
-  const fetch_data = async (e) => {
-    const fetch_dealer_filter = await axios.get(
-      `http://localhost:3000/api/location/individuals?commune=${e}`
+  const filter = async (target) => {
+    return await axios.get(
+      `http://localhost:3000/api/location/individuals?commune=${target}`
     );
-    setValue(e);
-    setOption(true);
-    setIndividuals(fetch_dealer_filter.data);
   };
 
   const disable = async () => {
-    const fetch_dealer_filter = await axios.get(
-      `http://localhost:3000/api/location/individuals`
-    );
-    setValue("");
-    setOption(false);
-    setIndividuals(fetch_dealer_filter.data);
+    return await axios.get(`http://localhost:3000/api/location/individuals`);
   };
 
   return (
-    <Box as="main" px={`20`}>
+    <Wauto>
       {/* navigation menu */}
-      <Header />
+      <Pub_location />
       {/*  */}
       <Box pt={`50px`} as="section">
         <Center fontFamily={`ubuntu`}>
@@ -102,31 +96,21 @@ export default function Individual_Location({ individuals_location }) {
         {/*  */}
         <Divider mt={"20px"} />
         {/*  */}
-        <Center mt={"20px"} display={"flex"} gap="20px">
-          <Text>filtrez par commune</Text>
-          <RadioGroup
-            borderRadius={"20px"}
-            bgColor={"#FEAF23"}
-            onChange={(e) => fetch_data(e)}
-            value={value}
-            px="10px">
-            <Stack direction="row">
-              <Radio value="libreville">Libreville</Radio>
-              <Radio value="akanda">Akanda</Radio>
-              <Radio value="owendo">Owendo</Radio>
-            </Stack>
-          </RadioGroup>
-          {option && <button onClick={disable}>Annule le filtre</button>}
-        </Center>
+        <Radio_group
+          setDealers={setIndividuals}
+          filter={filter}
+          disableB={disable}
+        />
         {/*  */}
       </Box>
       {/*  */}
-      {individuals.map((individual) => (
-        <CardP key={individual._id} val={individual} href={href} />
-      ))}
+      <DisplayPartners>
+        {individuals.map((individual) => (
+          <CardP key={individual._id} val={individual} href={href} />
+        ))}
+      </DisplayPartners>
       {/*  */}
-      <Footer />
-    </Box>
+    </Wauto>
   );
 }
 

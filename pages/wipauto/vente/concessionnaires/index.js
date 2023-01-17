@@ -1,59 +1,38 @@
-import {
-  Box,
-  Center,
-  Text,
-  Wrap,
-  WrapItem,
-  Divider,
-  Radio,
-  RadioGroup,
-  Button,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, Center, Text, Wrap, WrapItem, Divider } from "@chakra-ui/react";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import CardP from "../../../components/pages/vente/CardP";
-import Header from "../../../components/pages/Header";
-import Footer from "../../../components/pages/Footer";
+import CardP from "../../../components/pages/CardP";
 import { get_concessionnaires_vente } from "../../../../hooks/helpers";
 import axios from "axios";
+import Wauto from "../../../components/layout/Wauto";
+import DisplayPartners from "../../../components/layout/DisplayPartners";
+import Radio_group from "../../../components/Radio";
 
 export default function VenteConcessionnaires({ CONCESSIONNAIRE_VENTE }) {
   // etat
-  const [events, setEvents] = useState(CONCESSIONNAIRE_VENTE);
+  const [dealers, setDealers] = useState(CONCESSIONNAIRE_VENTE);
   const route = useRouter();
-  const href = route.asPath
-  const [value, setValue] = useState("");
-  const [option, setOption] = useState(false);
-  console.log(route);
+  const href = route.asPath;
+  const routesplice = route.asPath.split("/");
+  const name = routesplice.findLast((element) => element);
 
   // action
-  const fetch_data = async (e) => {
-    const fetch_dealer_filter = await axios.get(
-      `http://localhost:3000/api/vente/dealers?commune=${e}`
+  const filter = async (target) => {
+    return await axios.get(
+      `http://localhost:3000/api/vente/dealers?commune=${target}`
     );
-    setValue(e);
-    setOption(true);
-    setEvents(fetch_dealer_filter.data);
   };
 
   const disable = async () => {
-    const fetch_dealer_filter = await axios.get(
-      `http://localhost:3000/api/vente/dealers`
-    );
-    setValue("");
-    setOption(false);
-    setEvents(fetch_dealer_filter.data);
+    return await axios.get(`http://localhost:3000/api/vente/dealers`);
   };
 
   // affichage
 
   return (
-    <Box as="main" px={"20"}>
-      <Header />
-
+    <Wauto>
       <Box as="section" pt={"50px"}>
         {/*  */}
         <Center fontFamily={`ubuntu`}>
@@ -91,42 +70,43 @@ export default function VenteConcessionnaires({ CONCESSIONNAIRE_VENTE }) {
           </Wrap>
         </Box>
         {/*  */}
-        <Box>
-          <Center fontFamily={`ubuntu`}>
-            <Text fontSize={`36px`} lineHeight={`101px`} fontWeight={`700`}>
-              Trouver des vendeurs par commune
+        <Box mt={"20px"} display={"flex"} justifyContent={"center"}>
+          <Center bg={"#888686"} w={"994px"} h={"50px"} fontFamily={`ubuntu`}>
+            <Text fontSize={`30px`} lineHeight={`101px`} fontWeight={`700`}>
+              <Box as="span" color={"#FEAF23"}>
+                Liste
+              </Box>{" "}
+              {name}
             </Text>
           </Center>
         </Box>
         {/*  */}
-        <Divider />
+        <Divider mt={"20px"} />
 
         {/*  */}
-        <RadioGroup
-          onChange={(e) => fetch_data(e)}
-          value={value}
-          padding="25px">
-          <Stack direction="row">
-            <Radio value="libreville">Libreville</Radio>
-            <Radio value="akanda">Akanda</Radio>
-            <Radio value="owendo">Owendo</Radio>
-            {option && <button onClick={disable}>Annule le filtre</button>}
-          </Stack>
-        </RadioGroup>
+        <Radio_group
+          setDealers={setDealers}
+          filter={filter}
+          disableB={disable}
+        />
         {/*  */}
-        {events.map((val) => (
-          <CardP key={val._id} val={val} href={href} />
-        ))}
+        <DisplayPartners>
+          {dealers.map((val) => (
+            <CardP key={val._id} val={val} href={href} />
+          ))}
+        </DisplayPartners>
 
         {/*  */}
       </Box>
-
-      <Footer />
-    </Box>
+    </Wauto>
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }) {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
   const CONCESSIONNAIRE_VENTE = await get_concessionnaires_vente();
 
   return {

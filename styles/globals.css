@@ -19,6 +19,7 @@ li{
 
 * {
   box-sizing: border-box;
+  color:  aliceblue;
 }
 
 @media (prefers-color-scheme: dark) {

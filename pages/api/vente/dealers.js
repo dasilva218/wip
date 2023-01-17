@@ -1,4 +1,4 @@
-import { dealers_vente } from "../../../controllers/controllerD";
+import { dealers_vente } from "../../../controllers/Controler_dealers";
 import dbConnect from "../../../database/dbconnect";
 
 export default async function handler(req, res) {

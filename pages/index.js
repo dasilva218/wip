@@ -5,6 +5,7 @@ import HomeChild from "./components/pages/HomeChild";
 export default function Home() {
   return (
     <Box
+      bgColor={"#252523"}
       display={`flex`}
       flexDirection={`column`}
       as="main"

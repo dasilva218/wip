@@ -6,19 +6,14 @@ export async function dealers_location(req, res) {
 
   if (commune) {
     try {
-      const dealers = await Partners.find().and([
-        {
-          location: true,
-        },
-        {
-          commune,
-        },
+      const Dealer = await Partners.find().and([
+        { location: true },
+        { commune },
+        { status: "concessionnaire" },
       ]);
-
-      if (!dealers)
-        return res.status(404).json({ error: "données non trouvées" });
-
-      res.status(200).json(dealers);
+      if (!Dealer)
+        return res.status(404).json({ error: "données introuvable" });
+      res.status(200).json(Dealer);
     } catch (error) {
       res
         .status(404)
@@ -26,30 +21,20 @@ export async function dealers_location(req, res) {
     }
   } else {
     try {
-      const dealers = await Dealers.find({ location: true });
+      const Dealers = await Partners.find().and([
+        { location: true },
+        { status: "concessionnaire" },
+      ]);
 
-      if (!dealers)
+      if (!Dealers)
         return res.status(404).json({ error: "données non trouvées " });
 
-      res.status(200).json(dealers);
+      res.status(200).json(Dealers);
     } catch (error) {
       res
         .status(404)
         .json({ error: "erreur dans la récupération des données" });
     }
-  }
-}
-
-// get : http://localhost:3000/api/dealers/[dealer]
-export async function get_dealer(req, res) {
-  try {
-    const dealer = await Dealers.findById(req.query.dealer);
-
-    if (!dealer) return res.status(404).json({ error: "Data not Found" });
-
-    res.status(200).json(dealer);
-  } catch (error) {
-    res.status(404).json({ error: "Error While Fetching Data" });
   }
 }
 
@@ -59,12 +44,15 @@ export async function dealers_vente(req, res) {
 
   if (commune) {
     try {
-      const dealers = await Dealers.find().and([
+      const dealers = await Partners.find().and([
         {
           vente: true,
         },
         {
           commune,
+        },
+        {
+          status: "concessionnaire",
         },
       ]);
 
@@ -76,9 +64,14 @@ export async function dealers_vente(req, res) {
     }
   } else {
     try {
-      const dealers = await Dealers.find({
-        vente: true,
-      });
+      const dealers = await Partners.find().and([
+        {
+          vente: true,
+        },
+        {
+          status: "concessionnaire",
+        },
+      ]);
 
       if (!dealers) return res.status(404).json({ error: "Data not Found" });
 
@@ -89,16 +82,16 @@ export async function dealers_vente(req, res) {
   }
 }
 
-// post : http://localhost:3000/api/dealers
-export async function post_dealers(req, res) {
+// get : http://localhost:3000/api/dealers/[dealer]
+export async function get_dealer(req, res) {
+  console.log(req.query.dealer);
   try {
-    const formData = req.body;
-    if (!formData)
-      return res.status(404).json({ error: "Form Data Not Provided...!" });
-    Dealers.create(formData, function (err, data) {
-      return res.status(200).json(data);
-    });
+    const Dealer = await Partners.findById(req.query.dealer);
+
+    if (!Dealer) return res.status(404).json({ error: "Data not Found" });
+
+    res.status(200).json(Dealer);
   } catch (error) {
-    return res.status(404).json({ error });
+    res.status(404).json({ error: "Error While Fetching Data" });
   }
 }

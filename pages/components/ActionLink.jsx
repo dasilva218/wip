@@ -6,7 +6,6 @@ function ActionLink({ children, href }) {
   const style = {
     marginRight: 10,
     color: router.asPath === href ? "blue" : "orange",
-    borderBottom: "1px solid blue",
   };
 
   const handleClick = (e) => {

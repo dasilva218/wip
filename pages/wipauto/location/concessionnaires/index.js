@@ -5,57 +5,49 @@ import {
   Wrap,
   WrapItem,
   Divider,
-  Radio,
-  RadioGroup,
-  Stack,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { get_concessionnaires_location } from "../../../../hooks/helpers";
-import Footer from "../../../components/pages/Footer";
-import Header from "../../../components/pages/Header";
 import CardP from "../../../components/pages/CardP";
 import axios from "axios";
+import { BiArrowBack } from "react-icons/bi";
+import Wauto from "../../../components/layout/Wauto";
+import Pub_location from "../../../components/Pub_location";
+import Radio_group from "../../../components/Radio";
+import DisplayPartners from "../../../components/layout/DisplayPartners";
 
 export default function Dealer_Location({ dealers_location }) {
   // etats
-
   const [dealers, setDealers] = useState(dealers_location);
-  const [value, setValue] = useState("");
-  const [option, setOption] = useState(false);
   const route = useRouter();
   const href = route.asPath;
   const routesplice = route.asPath.split("/");
   const name = routesplice.findLast((element) => element);
 
-  // actions
-
-  const fetch_data = async (e) => {
-    const fetch_dealer_filter = await axios.get(
-      `http://localhost:3000/api/location/dealers?commune=${e}`
+  const filter = async (target) => {
+    return await axios.get(
+      `http://localhost:3000/api/location/dealers?commune=${target}`
     );
-    setValue(e);
-    setOption(true);
-    setDealers(fetch_dealer_filter.data);
   };
 
   const disable = async () => {
-    const fetch_dealer_filter = await axios.get(
-      `http://localhost:3000/api/location/dealers`
-    );
-    setValue("");
-    setOption(false);
-    setDealers(fetch_dealer_filter.data);
+    return await axios.get(`http://localhost:3000/api/location/dealers`);
   };
 
-  // affichage
-
   return (
-    <Box as="main" px={`20`}>
-      <Header />
+    <Wauto>
       {/*  */}
-
+      <button type="button" onClick={() => route.back()}>
+        <Box display={"flex"} gap="2" alignItems="center">
+          <BiArrowBack />
+          Retour
+        </Box>
+      </button>
+      {/*  */}
+      <Pub_location />
       {/*  */}
       <Box pt={`50px`} as="section">
         <Center fontFamily={`ubuntu`}>
@@ -131,10 +123,10 @@ export default function Dealer_Location({ dealers_location }) {
                   POURQUOI CHOISIR UN CONCESSIONNAIRE ?
                 </Box>
                 <br /> Vous cherchez à acheter un véhicule neuf ou une occasion
-                récente ? Ayez le réflexe du concessionnaire, qui peut vous
+                récente? Ayez le réflexe du concessionnaire, qui peut vous
                 conseiller sur le modèle, les options et équipements de votre
                 prochaine voiture. Chaque concessionnaire ou distributeur peut
-                être multimarque ou ne vendre que les modèles d &apos;un seul
+                être multimarque ou ne vendre que les modèles d&apos;un seul
                 constructeur, et propose des services complémentaires de
                 location longue durée, solutions de financement, ... La
                 concession dispose aussi de mécaniciens auto expérimentés qui
@@ -144,35 +136,36 @@ export default function Dealer_Location({ dealers_location }) {
           </Wrap>
         </Box>
         {/*  */}
+        <Box mt={"20px"} display={"flex"} justifyContent={"center"}>
+          <Center bg={"#888686"} w={"994px"} h={"50px"} fontFamily={`ubuntu`}>
+            <Text fontSize={`30px`} lineHeight={`101px`} fontWeight={`700`}>
+              <Box as="span" color={"#FEAF23"}>
+                Liste
+              </Box>{" "}
+              {name}
+            </Text>
+          </Center>
+        </Box>
         <Divider mt={"20px"} />
-        <Center>
-          <Text>liste des {name}</Text>
-        </Center>
-        <Center mt={"20px"} display={"flex"} gap="20px">
-          <Text>filtrez par commune</Text>
-          <RadioGroup
-            borderRadius={"20px"}
-            bgColor={"#FEAF23"}
-            onChange={(e) => fetch_data(e)}
-            value={value}
-            px="10px">
-            <Stack direction="row">
-              <Radio value="libreville">Libreville</Radio>
-              <Radio value="akanda">Akanda</Radio>
-              <Radio value="owendo">Owendo</Radio>
-            </Stack>
-          </RadioGroup>
-          {option && <button onClick={disable}>Annule le filtre</button>}
-        </Center>
+        {/*  */}
+        <Radio_group
+          setDealers={setDealers}
+          filter={filter}
+          disableB={disable}
+        />
+        {/*  */}
       </Box>
       {/*  */}
 
-      {dealers.map((item) => (
-        <CardP key={item._id} val={item} href={href} />
-      ))}
       {/*  */}
-      <Footer />
-    </Box>
+      <DisplayPartners>
+        {dealers.map((item) => (
+          <CardP key={item._id} val={item} href={href} />
+        ))}
+      </DisplayPartners>
+
+      {/*  */}
+    </Wauto>
   );
 }
 

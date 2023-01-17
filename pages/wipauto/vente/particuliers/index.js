@@ -15,38 +15,31 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { get_particuliers_vente } from "../../../../hooks/helpers";
-import Footer from "../../../components/pages/Footer";
-import Header from "../../../components/pages/Header";
-import CardP from "../../../components/pages/vente/CardP";
+import DisplayPartners from "../../../components/layout/DisplayPartners";
+import Wauto from "../../../components/layout/Wauto";
+import CardP from "../../../components/pages/CardP";
+import Radio_group from "../../../components/Radio";
 
 export default function VenteIndividuals({ individuals_vente }) {
-  const [events, setEvents] = useState(individuals_vente);
-  const [value, setValue] = useState("");
-  const [option, setOption] = useState(false);
-  const route = useRouter()
+  const [individuals, setIndividuals] = useState(individuals_vente);
+  const route = useRouter();
   const href = route.asPath;
+  const routesplice = route.asPath.split("/");
+  const name = routesplice.findLast((element) => element);
 
-  const fetch_data = async (e) => {
-    const fetch_dealer_filter = await axios.get(
-      `http://localhost:3000/api/vente/individuals?commune=${e}`
+  // action
+  const filter = async (target) => {
+    return await axios.get(
+      `http://localhost:3000/api/vente/individuals?commune=${target}`
     );
-    setValue(e);
-    setOption(true);
-    setEvents(fetch_dealer_filter.data);
   };
 
   const disable = async () => {
-    const fetch_dealer_filter = await axios.get(
-      `http://localhost:3000/api/vente/individuals`
-    );
-    setValue("");
-    setOption(false);
-    setEvents(fetch_dealer_filter.data);
+    return await axios.get(`http://localhost:3000/api/vente/individuals`);
   };
 
   return (
-    <Box as="main" px={"20"}>
-      <Header />
+    <Wauto>
       <Box as="section" pt={"50px"}>
         {/*  */}
         <Center fontFamily={`ubuntu`}>
@@ -84,38 +77,35 @@ export default function VenteIndividuals({ individuals_vente }) {
           </Wrap>
         </Box>
         {/*  */}
-        <Box>
-          <Center fontFamily={`ubuntu`}>
-            <Text fontSize={`36px`} lineHeight={`101px`} fontWeight={`700`}>
-              Trouver des vendeurs par commune
+        <Box mt={"20px"} display={"flex"} justifyContent={"center"}>
+          <Center bg={"#888686"} w={"994px"} h={"50px"} fontFamily={`ubuntu`}>
+            <Text fontSize={`30px`} lineHeight={`101px`} fontWeight={`700`}>
+              <Box as="span" color={"#FEAF23"}>
+                Liste
+              </Box>{" "}
+              {name}
             </Text>
           </Center>
         </Box>
         {/*  */}
-        <Divider />
+        <Divider mt={"20px"} />
 
         {/*  */}
-        <RadioGroup
-          onChange={(e) => fetch_data(e)}
-          value={value}
-          padding="25px">
-          <Stack direction="row">
-            <Radio value="libreville">Libreville</Radio>
-            <Radio value="akanda">Akanda</Radio>
-            <Radio value="owendo">Owendo</Radio>
-            {option && <button onClick={disable}>Annule le filtre</button>}
-          </Stack>
-        </RadioGroup>
+        <Radio_group
+          setDealers={setIndividuals}
+          filter={filter}
+          disableB={disable}
+        />
         {/*  */}
-        {events.map((val) => (
-          <CardP key={val._id} val={val} href={href} />
-        ))}
+        <DisplayPartners>
+          {individuals.map((val) => (
+            <CardP key={val._id} val={val} href={href} />
+          ))}
+        </DisplayPartners>
 
         {/*  */}
       </Box>
-
-      <Footer />
-    </Box>
+    </Wauto>
   );
 }
 

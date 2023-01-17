@@ -1,4 +1,4 @@
-import Particuliers from "../models/individuals";
+import Partners from "../models/partners";
 
 // get : http://localhost:3000/api/location/individuals
 export async function get_individuals_location(req, res) {
@@ -6,9 +6,10 @@ export async function get_individuals_location(req, res) {
 
   if (commune) {
     try {
-      const individuals = await Particuliers.find().and([
+      const individuals = await Partners.find().and([
         { commune },
         { location: true },
+        { status: "particulier" },
       ]);
 
       if (!individuals)
@@ -22,7 +23,10 @@ export async function get_individuals_location(req, res) {
     }
   } else {
     try {
-      const individuals = await Particuliers.find({ location: true });
+      const individuals = await Partners.find().and([
+        { location: true },
+        { status: "particulier" },
+      ]);
 
       if (!individuals)
         return res.status(404).json({ error: "données non trouvées " });
@@ -42,12 +46,15 @@ export async function get_individuals_vente(req, res) {
 
   if (commune) {
     try {
-      const individuals = await Particuliers.find().and([
+      const individuals = await Partners.find().and([
         {
           vente: true,
         },
         {
           commune,
+        },
+        {
+          status: "particulier",
         },
       ]);
 
@@ -60,9 +67,14 @@ export async function get_individuals_vente(req, res) {
     }
   } else {
     try {
-      const individuals = await Particuliers.find({
-        vente: true,
-      });
+      const individuals = await Partners.find().and([
+        {
+          vente: true,
+        },
+        {
+          status: "particulier",
+        },
+      ]);
 
       if (!individuals)
         return res.status(404).json({ error: "Data not Found" });
@@ -74,11 +86,10 @@ export async function get_individuals_vente(req, res) {
   }
 }
 
-
 // get : http://localhost:3000/api/individuals/[individual]
 export async function get_individual(req, res) {
   try {
-    const individual = await Particuliers.findById(req.query.individual);
+    const individual = await Partners.findById(req.query.individual);
 
     if (!individual) return res.status(404).json({ error: "Data not Found" });
 

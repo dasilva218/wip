@@ -3,8 +3,6 @@ import Image from "next/image";
 import HomeB from "../button/ButtonHome";
 import Certifie from "../Certifie";
 
-
-
 function HomeChild() {
   return (
     <Box as={`section`} h={`100%`}>
@@ -16,7 +14,7 @@ function HomeChild() {
           h={`477px`}
           flexDirection={`column`}>
           {/*  */}
-          <Certifie/>
+          <Certifie />
           {/*  */}
           <Flex gap={`25px`} alignItems={`center`}>
             <Text
@@ -57,8 +55,7 @@ function HomeChild() {
               letterSpacing={`0.02rem`}
               fontWeight={`400`}
               fontSize={`20px`}
-              lineHeight={`36px`}
-              textColor={`#747582`}>
+              lineHeight={`36px`}>
               Ne vous déplacez plus ! Peu importe où vous êtes, wip vous offre
               un catalogue de service sur mesure gagnez du temps faites des
               économies et comparez vos prix.

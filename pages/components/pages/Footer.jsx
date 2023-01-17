@@ -3,7 +3,7 @@ import Certifie from "../Certifie";
 
 const Footer = () => {
   return (
-    <Box mt={`50px`} h={`100px`}  bgGradient="linear-gradient(101.14deg, #FFA500 -5.69%, rgba(254, 175, 35, 0.62) 69.16%)">
+    <Box m={"10"}  h={`100px`} bgColor="gray.700"  >
       <Center h={`100%`}>
         <Wrap spacing={`50px`}>
           <WrapItem>WIP</WrapItem>
