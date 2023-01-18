@@ -5,6 +5,7 @@ import {
   Wrap,
   WrapItem,
   Divider,
+  
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -17,7 +18,6 @@ import Wauto from '../../../../components/layout/Wauto';
 import Pub_location from '../../../../components/Pub_location';
 import Radio_group from '../../../../components/Radio';
 import DisplayPartners from '../../../../components/layout/DisplayPartners';
-import Partners from '../../../../models/partners';
 
 export default function Dealer_Location({ dealers_location }) {
   // etats
@@ -196,16 +196,10 @@ export async function getServerSideProps({ req, res }) {
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59'
   );
-  const dealers_location = await Partners.find().and([
-    { location: true },
-    { status: 'concessionnaire' },
-  ]);
-
-  console.log(dealers_location);
-
+  const dealers_location = await get_concessionnaires_location();
   return {
     props: {
-      dealers_location: JSON.parse(JSON.stringify(dealers_location)),
+      dealers_location,
     },
   };
 }
