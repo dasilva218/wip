@@ -3,8 +3,8 @@ const BASE_URL = 'http://localhost:3000/';
 // concessionnaires qui font dans la location
 export const get_concessionnaires_location = async () => {
   const response = await fetch(`${BASE_URL}api/location/dealers`);
-  const json = await response.json();
-  return json;
+
+  return response.json();
 };
 
 // concessionnaires qui font dans la vente
