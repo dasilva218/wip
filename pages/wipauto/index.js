@@ -3,21 +3,30 @@
 import { Box, Center, Text, Flex, Wrap, WrapItem } from "@chakra-ui/react";
 import Image from "next/image";
 import Wauto from "../../components/layout/Wauto";
+import clientPromise from "../../lib/mongodb";
 
-export default function AutoIndex() {
+export default function AutoIndex({ isConnected }) {
   return (
     <>
       <Wauto>
         <Box>
+          {isConnected ? (
+            <h2 className='subtitle'>You are connected to MongoDB</h2>
+          ) : (
+            <h2 className='subtitle'>
+              You are NOT connected to MongoDB. Check the{' '}
+              <code>README.md</code> for instructions.
+            </h2>
+          )}
           {/*  */}
-          <Box h={"396"} overflow="hidden">
+          <Box h={'396'} overflow='hidden'>
             <Center>
               <video
                 loop
-                width={"100%"}
+                width={'100%'}
                 autoPlay
-                class="child"
-                src="/Luxury Car Video Ads - Made with PosterMyWall.mp4"></video>
+                class='child'
+                src='/Luxury Car Video Ads - Made with PosterMyWall.mp4'></video>
             </Center>
           </Box>
           {/* <Box h={`236px`} as="section">
@@ -25,12 +34,12 @@ export default function AutoIndex() {
       </Box> */}
           {/*  */}
           <Box pb={20}>
-            <Center py={"10"}>
+            <Center py={'10'}>
               <Text
-                bgGradient="linear(to-l, #FEAF23, #FF0080)"
-                bgClip="text"
-                fontSize="8xl"
-                fontWeight="extrabold">
+                bgGradient='linear(to-l, #FEAF23, #FF0080)'
+                bgClip='text'
+                fontSize='8xl'
+                fontWeight='extrabold'>
                 Wip Auto
               </Text>
             </Center>
@@ -54,56 +63,79 @@ export default function AutoIndex() {
                   fontSize={`20px`}
                   fontWeight={`300`}
                   lineHeight={`180.87%`}>
-                  Nous vous connectons aux plus grandes enseignes de location et
-                  vente de voitures..
+                  Nous vous connectons aux plus grandes enseignes de
+                  location et vente de voitures..
                 </Text>
-                <Text fontSize={`19px`} fontWeight={`400`} lineHeight={`36px`}>
-                  wip met à votre disposition un catalogue d&apos;agence et de
-                  particulier qui font dans la vente et la location des
-                  véhicules vous y trouverez également des services liés à
-                  l'automobile .
+                <Text
+                  fontSize={`19px`}
+                  fontWeight={`400`}
+                  lineHeight={`36px`}>
+                  wip met à votre disposition un catalogue
+                  d&apos;agence et de particulier qui font dans la
+                  vente et la location des véhicules vous y trouverez
+                  également des services liés à l'automobile .
                 </Text>
               </Flex>
-              <Box position={`relative`} w={`450px`} flex="1 1 0">
-                <Image src={`/voiture.svg`} fill alt="voiture" />
+              <Box position={`relative`} w={`450px`} flex='1 1 0'>
+                <Image src={`/voiture.svg`} fill alt='voiture' />
               </Box>
             </Flex>
-            <Center bgColor={"gray.700"}>
+            <Center bgColor={'gray.700'}>
               <Wrap spacing={`50px`} h={`80px`}>
-                <WrapItem w="80px" h="80px" position={`relative`}>
-                  <Image src={`/logomarques/bmw.svg`} fill alt="voiture" />
+                <WrapItem w='80px' h='80px' position={`relative`}>
+                  <Image
+                    src={`/logomarques/bmw.svg`}
+                    fill
+                    alt='voiture'
+                  />
                 </WrapItem>
-                <WrapItem w="80px" h="80px" position={`relative`}>
-                  <Image src={`/logomarques/ford.svg`} fill alt="voiture" />
+                <WrapItem w='80px' h='80px' position={`relative`}>
+                  <Image
+                    src={`/logomarques/ford.svg`}
+                    fill
+                    alt='voiture'
+                  />
                 </WrapItem>
-                <WrapItem w="80px" h="80px" position={`relative`}>
-                  <Image src={`/logomarques/madza.svg`} fill alt="voiture" />
+                <WrapItem w='80px' h='80px' position={`relative`}>
+                  <Image
+                    src={`/logomarques/madza.svg`}
+                    fill
+                    alt='voiture'
+                  />
                 </WrapItem>
-                <WrapItem w="80px" h="80px" position={`relative`}>
-                  <Image src={`/logomarques/nissan.svg`} fill alt="voiture" />
+                <WrapItem w='80px' h='80px' position={`relative`}>
+                  <Image
+                    src={`/logomarques/nissan.svg`}
+                    fill
+                    alt='voiture'
+                  />
                 </WrapItem>
-                <WrapItem w="80px" h="80px" position={`relative`}>
+                <WrapItem w='80px' h='80px' position={`relative`}>
                   <Image
                     src={`/logomarques/tata-logo.svg`}
                     fill
-                    alt="voiture"
+                    alt='voiture'
                   />
                 </WrapItem>
-                <WrapItem w="80px" h="80px" position={`relative`}>
+                <WrapItem w='80px' h='80px' position={`relative`}>
                   <Image
                     src={`/logomarques/mahindra-logo.svg`}
                     fill
-                    alt="voiture"
+                    alt='voiture'
                   />
                 </WrapItem>
-                <WrapItem w="80px" h="80px" position={`relative`}>
-                  <Image src={`/logomarques/wolwagen.svg`} fill alt="voiture" />
+                <WrapItem w='80px' h='80px' position={`relative`}>
+                  <Image
+                    src={`/logomarques/wolwagen.svg`}
+                    fill
+                    alt='voiture'
+                  />
                 </WrapItem>
-                <WrapItem w="80px" h="80px" position={`relative`}>
+                <WrapItem w='80px' h='80px' position={`relative`}>
                   <Image
                     src={`/logomarques/toyota-logo.svg`}
                     fill
-                    alt="voiture"
+                    alt='voiture'
                   />
                 </WrapItem>
               </Wrap>
@@ -113,4 +145,27 @@ export default function AutoIndex() {
       </Wauto>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  try {
+    await clientPromise
+    // `await clientPromise` will use the default database passed in the MONGODB_URI
+    // However you can use another database (e.g. myDatabase) by replacing the `await clientPromise` with the following code:
+    //
+    // `const client = await clientPromise`
+    // `const db = client.db("myDatabase")`
+    //
+    // Then you can execute queries against your database like so:
+    // db.find({}) or any of the MongoDB Node Driver commands
+
+    return {
+      props: { isConnected: true },
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      props: { isConnected: false },
+    };
+  }
 }

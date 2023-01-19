@@ -5,7 +5,6 @@ import {
   Wrap,
   WrapItem,
   Divider,
-
 } from '@chakra-ui/react';
 import axios from 'axios';
 import Image from 'next/image';

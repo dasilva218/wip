@@ -9,7 +9,6 @@ import {
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-// import { get_concessionnaires_location } from '../../../../hooks/helpers';
 import CardP from '../../../../components/pages/CardP';
 import axios from 'axios';
 import { BiArrowBack } from 'react-icons/bi';
@@ -17,7 +16,7 @@ import Wauto from '../../../../components/layout/Wauto';
 import Pub_location from '../../../../components/Pub_location';
 import Radio_group from '../../../../components/Radio';
 import DisplayPartners from '../../../../components/layout/DisplayPartners';
-import Partners from '../../../../models/partners';
+import clientPromise from '../../../../lib/mongodb';
 
 export default function Dealer_Location({ dealers_location }) {
   // etats
@@ -42,12 +41,7 @@ export default function Dealer_Location({ dealers_location }) {
   return (
     <Wauto>
       {/*  */}
-      <button type='button' onClick={() => route.back()}>
-        <Box display={'flex'} gap='2' alignItems='center'>
-          <BiArrowBack />
-          Retour
-        </Box>
-      </button>
+
       {/*  */}
       <Pub_location />
       {/*  */}
@@ -196,10 +190,13 @@ export async function getServerSideProps({ req, res }) {
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59'
   );
-  const dealers_location = await Partners.find().and([
-    { location: true },
-    { status: 'concessionnaire' },
-  ]);
+
+  const client = await clientPromise;
+  const db = client.db('wip_db');
+  const dealers_location = await db
+    .collection('partners')
+    .find({ location: true })
+    .toArray();
   return {
     props: {
       dealers_location: JSON.parse(JSON.stringify(dealers_location)),
