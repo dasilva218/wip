@@ -1,26 +1,36 @@
-import axios from "axios";
-import { useState } from "react";
-import { useRouter } from "next/router";
-import Particular from "../../../../components/layout/Particular";
+import axios from 'axios';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Particular from '../../../../components/layout/Particular';
+import {
+  get_carrent,
+  get_individual,
+} from '../../../../hooks/helpers';
 
 export default function Detail({ data }) {
   const [partner, setDealer] = useState(data);
-   const route = useRouter();
-   const routesplice = route.pathname.split("/");
-   const [, , service, partners] = routesplice;
+  const route = useRouter();
+  const routesplice = route.pathname.split('/');
+  const [, , service, partners] = routesplice;
 
-  return <Particular partner={partner} service={service} partners={partners} />;
+  return (
+    <Particular
+      partner={partner}
+      service={service}
+      partners={partners}
+    />
+  );
 }
 
 export async function getServerSideProps({ req, res, query }) {
   const { id } = query;
 
-  const dealer = await axios.get(`http://localhost:3000/api/individuals/${id}`);
-  const cars_rent = await axios.get(`http://localhost:3000/api/carrent/${id}`);
-  dealer.data.carRent = await cars_rent.data;
+  const dealer = await get_individual(id);
+  const cars_rent = await get_carrent(id);
+  dealer.carRent = await cars_rent;
   return {
     props: {
-      data: dealer.data,
+      data: dealer,
     },
   };
 }

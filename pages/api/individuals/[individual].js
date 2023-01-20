@@ -1,10 +1,11 @@
 import { get_individual } from "../../../controllers/Controller_individuals";
-import dbConnect from "../../../database/dbconnect";
+import { dbConnect } from "../../../database/dbconnect";
+
 
 export default async function handler(req, res) {
   const { method } = req;
 
-  dbConnect();
+  dbConnect()
 
   switch (method) {
     case "GET":

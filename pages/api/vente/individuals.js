@@ -1,8 +1,9 @@
 import { get_individuals_vente } from "../../../controllers/Controller_individuals";
-import dbConnect from "../../../database/dbconnect";
+import { dbConnect } from "../../../database/dbconnect";
+
 
 export default async function handler(req, res) {
-  dbConnect();
+  dbConnect()
 
   switch (req.method) {
     case "GET":

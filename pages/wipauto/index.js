@@ -3,21 +3,14 @@
 import { Box, Center, Text, Flex, Wrap, WrapItem } from "@chakra-ui/react";
 import Image from "next/image";
 import Wauto from "../../components/layout/Wauto";
-import clientPromise from "../../lib/mongodb";
+
 
 export default function AutoIndex({ isConnected }) {
   return (
     <>
       <Wauto>
         <Box>
-          {isConnected ? (
-            <h2 className='subtitle'>You are connected to MongoDB</h2>
-          ) : (
-            <h2 className='subtitle'>
-              You are NOT connected to MongoDB. Check the{' '}
-              <code>README.md</code> for instructions.
-            </h2>
-          )}
+         
           {/*  */}
           <Box h={'396'} overflow='hidden'>
             <Center>

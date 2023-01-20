@@ -32,13 +32,13 @@ export default function Individual_Location({
   //action
   const filter = async (target) => {
     return await axios.get(
-      `http://localhost:3000/api/location/individuals?commune=${target}`
+      `/api/location/individuals?commune=${target}`
     );
   };
 
   const disable = async () => {
     return await axios.get(
-      `http://localhost:3000/api/location/individuals`
+      `/api/location/individuals`
     );
   };
 

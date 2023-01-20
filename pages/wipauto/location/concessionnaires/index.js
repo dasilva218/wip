@@ -11,33 +11,29 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import CardP from '../../../../components/pages/CardP';
 import axios from 'axios';
-import { BiArrowBack } from 'react-icons/bi';
 import Wauto from '../../../../components/layout/Wauto';
 import Pub_location from '../../../../components/Pub_location';
 import Radio_group from '../../../../components/Radio';
 import DisplayPartners from '../../../../components/layout/DisplayPartners';
-import clientPromise from '../../../../lib/mongodb';
+import Partners from '../../../../models/partners';
 
 export default function Dealer_Location({ dealers_location }) {
   // etats
+
   const [dealers, setDealers] = useState(dealers_location);
   const route = useRouter();
   const href = route.asPath;
   const routesplice = route.asPath.split('/');
   const name = routesplice.findLast((element) => element);
-
+  //action
   const filter = async (target) => {
-    return await axios.get(
-      `http://localhost:3000/api/location/dealers?commune=${target}`
-    );
+    return await axios.get(`/api/location/dealers?commune=${target}`);
   };
 
   const disable = async () => {
-    return await axios.get(
-      `http://localhost:3000/api/location/dealers`
-    );
+    return await axios.get(`/api/location/dealers`);
   };
-
+  //affichage
   return (
     <Wauto>
       {/*  */}
@@ -191,12 +187,11 @@ export async function getServerSideProps({ req, res }) {
     'public, s-maxage=10, stale-while-revalidate=59'
   );
 
-  const client = await clientPromise;
-  const db = client.db('wip_db');
-  const dealers_location = await db
-    .collection('partners')
-    .find({ location: true })
-    .toArray();
+  const dealers_location = await Partners.find().and([
+    { location: true },
+    { status: 'concessionnaire' },
+  ]);
+
   return {
     props: {
       dealers_location: JSON.parse(JSON.stringify(dealers_location)),

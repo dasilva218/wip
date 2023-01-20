@@ -21,12 +21,12 @@ export default function VenteConcessionnaires({ CONCESSIONNAIRE_VENTE }) {
   // action
   const filter = async (target) => {
     return await axios.get(
-      `http://localhost:3000/api/vente/dealers?commune=${target}`
+      `/api/vente/dealers?commune=${target}`
     );
   };
 
   const disable = async () => {
-    return await axios.get(`http://localhost:3000/api/vente/dealers`);
+    return await axios.get(`/api/vente/dealers`);
   };
 
   // affichage

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import Particular from '../../../../components/layout/Particular'
+import Particular from '../../../../components/layout/Particular';
+import { get_carrent, get_dealer } from '../../../../hooks/helpers';
 
 export default function Detail({ data }) {
   const [partner, setDealer] = useState(data);
@@ -10,7 +11,6 @@ export default function Detail({ data }) {
   const [, , service, partners] = routesplice;
 
   return (
-    
     <Particular
       partner={partner}
       service={service}
@@ -22,16 +22,15 @@ export default function Detail({ data }) {
 export async function getServerSideProps({ req, res, query }) {
   const { id } = query;
 
-  const dealer = await axios.get(
-    `http://localhost:3000/api/dealers/${id}`
-  );
-  const cars_rent = await axios.get(
-    `http://localhost:3000/api/carrent/${id}`
-  );
-  dealer.data.carRent = await cars_rent.data;
+  const dealer = await get_dealer(id);
+
+  const cars_rent = await get_carrent(id);
+
+  dealer.carRent = await cars_rent;
+
   return {
     props: {
-      data: dealer.data,
+      data: dealer,
     },
   };
 }
