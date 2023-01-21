@@ -15,7 +15,7 @@ import Wauto from '../../../../components/layout/Wauto';
 import Pub_location from '../../../../components/Pub_location';
 import Radio_group from '../../../../components/Radio';
 import DisplayPartners from '../../../../components/layout/DisplayPartners';
-import Partners from '../../../../models/partners';
+import { get_concessionnaires_location } from '../../../../hooks/helpers';
 
 export default function Dealer_Location({ dealers_location }) {
   // etats
@@ -187,14 +187,11 @@ export async function getServerSideProps({ req, res }) {
     'public, s-maxage=10, stale-while-revalidate=59'
   );
 
-  const dealers_location = await Partners.find().and([
-    { location: true },
-    { status: 'concessionnaire' },
-  ]);
+  const dealers_location = await get_concessionnaires_location();
 
   return {
     props: {
-      dealers_location: JSON.parse(JSON.stringify(dealers_location)),
+      dealers_location,
     },
   };
 }

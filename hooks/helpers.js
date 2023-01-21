@@ -51,3 +51,13 @@ export const get_car_sale = async (target) => {
   const response = await fetch(`${URL}api/carsale/${target}`);
   return response.json();
 };
+
+/**
+ * ! fontion qui compare par rapport au model et la marque
+ */
+export const compare_car_model_marque = async (marque, model, service) => {
+  const response = await fetch(
+    `${URL}api/compare/${marque}/${model}/${service}`
+  );
+  return response.json();
+};
