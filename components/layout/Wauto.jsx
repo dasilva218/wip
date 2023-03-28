@@ -5,7 +5,7 @@ import Header from '../pages/Header';
 function Wauto({ children }) {
   return (
     <>
-      <Box as='main' px={`20`} bgColor={'#252523'}>
+      <Box as='main'pb={10} px={`20`} bgColor={'gray.600'}>
         <Header />
         {children}
       </Box>

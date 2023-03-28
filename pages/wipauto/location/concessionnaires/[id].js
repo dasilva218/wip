@@ -9,7 +9,7 @@ export default function Detail({ data }) {
   const route = useRouter();
   const routesplice = route.pathname.split('/');
   const [, , service, partners] = routesplice;
-
+  console.log(routesplice);
   return (
     <Particular
       partner={partner}

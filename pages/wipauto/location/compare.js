@@ -33,7 +33,7 @@ const Compare = ({ data }) => {
 
   return (
     <Box>
-      <Box bg={'whatsapp.200'}>
+      <Box>
         <button type='button' onClick={() => route.back()}>
           <Box display={'flex'} gap='2' alignItems='center'>
             <BiArrowBack />
@@ -41,10 +41,10 @@ const Compare = ({ data }) => {
           </Box>
         </button>
       </Box>
-      <Center bg={'gray'}>
+      <Center>
         <Text fontSize={'3xl'}>Liste des véhicules</Text>
       </Center>
-      <Box padding={'20px'}>
+      <Box bgColor={'blue'} padding={'20px'}>
         <Wrap>
           {cars.map((car) => (
             <WrapItem key={car._id} h='100%'>
@@ -60,9 +60,16 @@ const Compare = ({ data }) => {
       </Box>
 
       <Modal visible={isModalOpen}>
-        <h1>{partenaire.name}</h1>
-        <p>{partenaire.telephone}</p>
-        <button onClick={closeModal}>Fermer</button>
+        <div className=' font-bold h-60  flex flex-col justify-center items-center gap-5 '>
+          <h1>Nom : {partenaire.name}</h1>
+          <p>
+            Tel : {partenaire.telephone?.map((tel) => tel + ' / ')}
+          </p>
+          <p> Email : {partenaire.email}</p>
+          <button className='btn btn-outline' onClick={closeModal}>
+            Fermer
+          </button>
+        </div>
       </Modal>
     </Box>
   );

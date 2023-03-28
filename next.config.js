@@ -6,6 +6,7 @@ const nextConfig = {
       'img.remediosdigitales.com',
       'tdrresearch.azureedge.net',
       'www.largus.fr',
+      'quebecmitsubishi.ca',
     ],
   },
   webpack(config) {

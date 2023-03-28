@@ -27,8 +27,7 @@ function Particular({ partner, service, partners }) {
       {/*  */}
       <Flex
         flex='1 1 30%'
-        bg={'whatsapp.300'}
-        border={'1px'}
+        color={"#fff"}
         flexDirection={'column'}
         gap='30px'
         alignItems='center'
@@ -57,11 +56,7 @@ function Particular({ partner, service, partners }) {
         </Box>
       </Flex>
       {/*  */}
-      <Box
-        border={'1px'}
-        overflow='auto'
-        borderColor='red'
-        flex='1 1 70%'>
+      <Box overflow='auto' flex='1 1 70%'>
         {/*  */}
         <Box display={'flex'} justifyContent={'center'}>
           <Center w={'994px'} h={'50px'} fontFamily={`ubuntu`}>
@@ -76,7 +71,8 @@ function Particular({ partner, service, partners }) {
           </Center>
         </Box>
         {/*  */}
-        <Wrap gap={'36px'}>
+
+        <Wrap display={'flex'} justifyContent={'center'} p={5}>
           {mp.map((car) => (
             <WrapItem key={car._id}>
               <CardVehicule

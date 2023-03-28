@@ -1,9 +1,12 @@
-import { dbConnect } from '../../../database/dbconnect';
+import connectMongo from '../../../database/dbconnect';
 import CarRent from '../../../models/carRent';
+import Cars from '../../../models/cars';
 import CarSale from '../../../models/carSale';
 
 export default async function handler(req, res) {
-  dbConnect();
+  connectMongo().catch(() =>
+    res.status(405).json({ error: 'Error in the Connection' })
+  );
 
   const [marque, model, service] = req.query.params;
 
@@ -11,9 +14,10 @@ export default async function handler(req, res) {
     case 'GET':
       if (service === 'location') {
         try {
-          const car_compar = await CarRent.find().and([
+          const car_compar = await Cars.find().and([
             { marque },
             { model },
+            { service },
           ]);
           if (!car_compar)
             return res
@@ -28,9 +32,10 @@ export default async function handler(req, res) {
         }
       } else if (service === 'vente') {
         try {
-          const car_compar = await CarSale.find().and([
+          const car_compar = await Cars.find().and([
             { marque },
             { model },
+            { service },
           ]);
           if (!car_compar)
             return res

@@ -40,11 +40,11 @@ export default function CardVehicule({
   return (
     <Card
       maxW='296px'
-      bg={'facebook.600'}
-      border={'1px'}
+      bg={'#fff'}
+      
       boxShadow={'dark-lg'}>
       <CardBody>
-        <Box border={'1px'} h='150px'>
+        <Box h='150px'>
           <Image
             alt='logo'
             boxSize='100%'
@@ -53,8 +53,8 @@ export default function CardVehicule({
           />
         </Box>
         <Stack mt='6' spacing='3'>
-          <Heading size='md'>{item.marque}</Heading>
-          <Text>{item.model}</Text>
+          <Heading size='md'>Marque : {item.marque}</Heading>
+          <Text fontWeight={'bold'} >Model : {item.model}</Text>
           <HStack>
             <Image
               src={`/transmission.svg`}
@@ -87,7 +87,7 @@ export default function CardVehicule({
         <CardFooter>
           {compare ? (
             <HStack>
-              <Text color='yellow' fontSize='md'>
+              <Text color='' fontSize='md'>
                 {numStr(item.prix)}{' '}
                 {service === 'vente' ? ' ' : '/ jours'}
               </Text>
@@ -100,15 +100,15 @@ export default function CardVehicule({
             </HStack>
           ) : (
             <HStack spacing={43}>
-              <Text color='yellow' fontSize='md'>
+              <Text color='' fontSize='md'>
                 {numStr(item.prix)}{' '}
                 {service === 'vente' ? ' ' : '/ jours'}
               </Text>
               <Link
                 href={`/wipauto/location/compare?marque=${item.marque}&model=${item.model}&service=${service}&partner=${partners}`}>
                 <HStack>
-                  <Text color={'yellow'}>Comparez</Text>
-                  <IconContext.Provider value={{ color: 'yellow' }}>
+                  <Text color={''}>Comparez</Text>
+                  <IconContext.Provider value={{ color: '' }}>
                     <FaLongArrowAltRight />
                   </IconContext.Provider>
                 </HStack>

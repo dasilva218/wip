@@ -1,24 +1,25 @@
-import { get_individual } from "../../../controllers/Controller_individuals";
-import { dbConnect } from "../../../database/dbconnect";
-
+import { get_individual } from '../../../controllers/Controller_individuals';
+import connectMongo from '../../../database/dbconnect';
 
 export default async function handler(req, res) {
   const { method } = req;
 
-  dbConnect()
+  connectMongo().catch(() =>
+    res.status(405).json({ error: 'Error in the Connection' })
+  );
 
   switch (method) {
-    case "GET":
+    case 'GET':
       get_individual(req, res);
       break;
-    case "POST":
+    case 'POST':
       break;
-    case "PUT":
+    case 'PUT':
       break;
-    case "DELETE":
+    case 'DELETE':
       break;
     default:
-      res.setHeader("Allow", ["GET", "POST", "PUT", "DELETE"]);
+      res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE']);
       res.status(405).end(`Method ${method} Not Allowd`);
       break;
   }

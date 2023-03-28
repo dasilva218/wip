@@ -13,9 +13,9 @@ import { useState } from 'react';
 
 function CardP({ val, href }) {
   const [ver, setVer] = useState([val]);
-  console.log(ver);
+  
   return (
-    <Card alignItems={'center'} display='flex'>
+    <Card boxShadow={"dark-lg"} alignItems={'center'} padding={3} display='flex'>
       <Image
         borderRadius='lg'
         objectFit='cover'
@@ -26,7 +26,7 @@ function CardP({ val, href }) {
       <CardHeader>
         <Heading size='md'> {val.name}</Heading>
       </CardHeader>
-      <CardBody>
+      <CardBody color={"#fff"} >
         <Text fontSize={'sm'}>
           Tel : {val.telephone.map((h) => h + ' / ')}
         </Text>

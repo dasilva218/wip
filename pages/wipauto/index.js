@@ -1,16 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
 
-import { Box, Center, Text, Flex, Wrap, WrapItem } from "@chakra-ui/react";
-import Image from "next/image";
-import Wauto from "../../components/layout/Wauto";
-
+import {
+  Box,
+  Center,
+  Text,
+  Flex,
+  Wrap,
+  WrapItem,
+} from '@chakra-ui/react';
+import Image from 'next/image';
+import Wauto from '../../components/layout/Wauto';
 
 export default function AutoIndex({ isConnected }) {
   return (
     <>
       <Wauto>
         <Box>
-         
           {/*  */}
           <Box h={'396'} overflow='hidden'>
             <Center>
@@ -38,6 +43,9 @@ export default function AutoIndex({ isConnected }) {
             </Center>
             <Flex flexDirection={`row`}>
               <Flex
+                marginBottom={'24'}
+                shadow={'dark-lg'}
+                color={'whatsapp.50'}
                 justifyContent={`center`}
                 textAlign={`center`}
                 fontFamily={`ubuntu`}
@@ -142,15 +150,7 @@ export default function AutoIndex({ isConnected }) {
 
 export async function getServerSideProps() {
   try {
-    await clientPromise
-    // `await clientPromise` will use the default database passed in the MONGODB_URI
-    // However you can use another database (e.g. myDatabase) by replacing the `await clientPromise` with the following code:
-    //
-    // `const client = await clientPromise`
-    // `const db = client.db("myDatabase")`
-    //
-    // Then you can execute queries against your database like so:
-    // db.find({}) or any of the MongoDB Node Driver commands
+    await clientPromise;
 
     return {
       props: { isConnected: true },

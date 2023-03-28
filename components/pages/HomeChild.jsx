@@ -7,20 +7,24 @@ function HomeChild() {
   return (
     <Box as={`section`} h={`100%`}>
       {/*  */}
-      <Flex flexDirection={['column', `row`]} h={[`100%`, '95%']}>
+      <Flex
+        alignItems={'center'}
+        flexDirection={['column', `row`]}
+        h={[`100%`, '100%']}>
         {/*  */}
         <Flex
           as='aside'
           w={['100%', `705px`]}
-          h={[, `477px`]}
-          alignItems={['center']}
+          h={['100%', `477px`]}
+          alignItems={['center', 'flex-start']}
           flexDirection={`column`}>
           {/*  */}
           <Certifie />
           {/*  */}
           <Flex
+            w={'100%'}
             textAlign={['center']}
-            gap={['0px', `25px`]}
+            gap={['0px', `65px`]}
             flexDirection={['column', 'row']}
             alignItems={`center`}>
             <Text
@@ -41,6 +45,7 @@ function HomeChild() {
                 bottom: 10,
                 position: 'absolute',
               }}
+              color={'gray.600'}
               fontFamily={`ubuntu`}
               position={`relative`}
               textAlign={`center`}
@@ -55,20 +60,22 @@ function HomeChild() {
           </Flex>
           {/*  */}
           <Flex
+            w={'100%'}
             justifyContent={'space-evenly'}
-            alignItems={'center'}
+            alignItems={['center', 'center']}
             h={['350px']}
             flexDirection={`column`}
-            gap={['80px', `55px`]}>
+            gap={['80px', `30px`]}>
             <Text
-              textAlign={'center'}
-              w={['90%', `561px`]}
-              h={['40%', `108px`]}
-              fontFamily={`ubuntu`}
+              color={'gray.600'}
+              textAlign={['center', '']}
+              w={['90%', `100%`]}
+              h={['40%', `100px`]}
+              fontFamily={`monospace`}
               letterSpacing={`0.02rem`}
               fontWeight={`400`}
               fontSize={`20px`}
-              lineHeight={`36px`}>
+              lineHeight={`49px`}>
               Ne vous déplacez plus ! Peu importe où vous êtes, wip
               vous offre un catalogue de service sur mesure gagnez du
               temps faites des économies et comparez vos prix.
@@ -79,9 +86,9 @@ function HomeChild() {
         </Flex>
         <Hide breakpoint='(max-width: 500px)'>
           <Box
+            h={'100%'}
             position={`relative`}
             as='aside'
-            w={`100%`}
             flex={`1 1 0`}>
             <Image src={`/home.svg`} alt='logo certifé' fill />
           </Box>
